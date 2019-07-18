@@ -49,10 +49,9 @@ def appendNodesToDictionary():
             return False
 
         pattern = re.compile("createNode \\w+ -n \"(\\w+_\\w+_\\w{3})\"")
-        with open(dictionaryFilePath, 'w+') as dictionaryFile:
-            with open(asciiFile, 'r') as f:
-                nodeNames = re.findall(pattern, f.read())
-            dictionaryFile.write('{}\n'.format('\n'.join(nodeNames)))
+        with open(asciiFile, 'r') as f:
+            nodeNames = re.findall(pattern, f.read())
+        dictionaryFile.write('{}\n'.format('\n'.join(nodeNames)))
         return True
 
     dictionaryFilePath = vim.eval('g:bzTools_mayaAsciiDictionaryPath')
@@ -61,9 +60,10 @@ def appendNodesToDictionary():
         return False
 
     ## Files to parse: published model, body components, face components
-    parseFile(buildAsset.modelPublished())
-    parseFile(buildAsset.bodyComponents())
-    parseFile(buildAsset.faceComponents())
+    with open(dictionaryFilePath, 'w+') as dictionaryFile:
+        parseFile(buildAsset.modelPublished())
+        parseFile(buildAsset.bodyComponents())
+        parseFile(buildAsset.faceComponents())
 
 
 def mayaCommandToOpenComponentsFile():
