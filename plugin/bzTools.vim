@@ -22,6 +22,10 @@ if !exists('g:bzTools_mayaAsciiDictionaryPath')
     let g:bzTools_mayaAsciiDictionaryPath = '/Users/'.$USERNAME.'/.vim/mayaAsciiDictionary'
 endif
 
+if !exists('g:bzTools_enableMayaAsciiDictionary')
+    let g:bzTools_enableMayaAsciiDictionary = 1
+endif
+
 "" ToggleMayaPythonBuffer settings
 if !exists('g:bzTools_tempPythonFilePath')
     let g:bzTools_tempPythonFilePath = '/Users/'.$USERNAME.'/Documents/tmpMayaPython.py'
@@ -48,8 +52,9 @@ function! DictionaryFromMayaAscii()
     """ REQUIRES THE BZPIPELINE.
     """ Parse the current build asset's published model and components files and add the node
     """     names to the dictionary file.
-    python bzTools.appendNodesToDictionary()
-
+    if g:bzTools_enableMayaAsciiDictionary == 1
+        python bzTools.appendNodesToDictionary()
+    endif
 endfunction
 
 function! OpenAssetComponentsSceneInMaya()
