@@ -75,6 +75,7 @@ def mayaCommandToOpenComponentsFile():
     if filePath:
         filePath = filePath.replace('\\', '/')
     
+    print 'Opening {} component scene for {}'.format(assetData['type'], assetData['name'])
     command = ('from maya import cmds as mc \n'
                'mc.file(\'{}\', o=1, f=1) \n').format(filePath)
     vim.command('let l:command = "{}"'.format(command))
