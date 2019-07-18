@@ -17,18 +17,18 @@ if !exists('*BzSendToMaya')
     endfunction
 endif
 
-"" DictionaryFromMayaAscii settings
-if !exists('g:bzTools_mayaAsciiDictionaryPath')
-    let g:bzTools_mayaAsciiDictionaryPath = '/Users/'.$USERNAME.'/.vim/mayaAsciiDictionary'
+"" AutocompleteAssetDictionary settings
+if !exists('g:bzTools_autocompleteAssetDictionaryFilePath')
+    let g:bzTools_autocompleteAssetDictionaryFilePath = '/Users/'.$USERNAME.'/.vim/mayaAsciiDictionary'
 endif
 
-if !exists('g:bzTools_enableMayaAsciiDictionary')
-    let g:bzTools_enableMayaAsciiDictionary = 1
+if !exists('g:bzTools_enableAutocompleteAssetDictionary')
+    let g:bzTools_enableAutocompleteAssetDictionary = 1
 endif
 
-"" ToggleMayaPythonBuffer settings
-if !exists('g:bzTools_tempPythonFilePath')
-    let g:bzTools_tempPythonFilePath = '/Users/'.$USERNAME.'/Documents/tmpMayaPython.py'
+"" MayaPythonBuffer settings
+if !exists('g:bzTools_mayaPythonBufferFilePath')
+    let g:bzTools_mayaPythonBufferFilePath = '/Users/'.$USERNAME.'/Documents/tmpMayaPython.py'
 endif
 
 if !exists('g:bzTools_mayaPythonBufferTemplate')
@@ -43,16 +43,16 @@ endif
 
 augroup bzTools
     autocmd!
-    autocmd BufEnter,FocusGained *.py :call DictionaryFromMayaAscii()
+    autocmd BufEnter,FocusGained *.py :call AutocompleteAssetDictionary()
 augroup END
 
 ""===============
 
-function! DictionaryFromMayaAscii()
+function! AutocompleteAssetDictionary()
     """ REQUIRES THE BZPIPELINE.
     """ Parse the current build asset's published model and components files and add the node
     """     names to the dictionary file.
-    if g:bzTools_enableMayaAsciiDictionary == 1
+    if g:bzTools_enableAutocompleteAssetDictionary == 1
         python bzTools.appendNodesToDictionary()
     endif
 endfunction
@@ -73,17 +73,17 @@ function! ToggleMayaPythonBuffer()
     
     "" If the buffer exists, wipe the buffer and delete the temp file.
     for bufId in range(1, bufnr('$'))
-        if bufname(bufId) == g:bzTools_tempPythonFilePath
+        if bufname(bufId) == g:bzTools_mayaPythonBufferFilePath
             w
             silent execute 'bwipeout' bufId
-            call delete(g:bzTools_tempPythonFilePath)
+            call delete(g:bzTools_mayaPythonBufferFilePath)
             return
         endif
     endfor
 
     "" Otherwise, open a new buffer at the bottom of the window and write the template to it.
     wincmd b
-    execute 'bel sp '.g:bzTools_tempPythonFilePath
+    execute 'bel sp '.g:bzTools_mayaPythonBufferFilePath
     call append(0, g:bzTools_mayaPythonBufferTemplate)
     w
     wincmd J
@@ -108,7 +108,7 @@ import bzTools
 EOF
 
 ""= Set dictionary file
-execute 'set dictionary+='.g:bzTools_mayaAsciiDictionaryPath
+execute 'set dictionary+='.g:bzTools_autocompleteAssetDictionaryFilePath
 
 endfunction
 

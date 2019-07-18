@@ -54,7 +54,7 @@ def appendNodesToDictionary():
         dictionaryFile.write('{}\n'.format('\n'.join(nodeNames)))
         return True
 
-    dictionaryFilePath = vim.eval('g:bzTools_mayaAsciiDictionaryPath')
+    dictionaryFilePath = vim.eval('g:bzTools_autocompleteAssetDictionaryFilePath')
     buildAsset = _getAssetClassFromBuffer()
     if not buildAsset:
         return False
