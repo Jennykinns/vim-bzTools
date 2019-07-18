@@ -106,6 +106,10 @@ import vim
 sys.path.append(vim.eval('s:path'))
 import bzTools
 EOF
+
+""= Set dictionary file
+execute 'set dictionary+='.g:bzTools_mayaAsciiDictionaryPath
+
 endfunction
 
 call s:BzTools_init()
