@@ -8,12 +8,6 @@ if exists("g:loaded_bzTools") || &cp
 endif
 let g:loaded_bzTools = 1
 
-
-augroup bzTools
-    autocmd!
-    " autocmd BufEnter *.py :call 
-augroup END
-
 ""===============
 "" General settings
 if !exists('*BzSendToMaya')
@@ -40,6 +34,13 @@ if !exists('g:bzTools_mayaPythonBufferTemplate')
                 \ 'from rigging import *', 
                 \ '']
 endif
+
+""===============
+
+augroup bzTools
+    autocmd!
+    autocmd BufEnter,FocusGained *.py :call DictionaryFromMayaAscii()
+augroup END
 
 ""===============
 
