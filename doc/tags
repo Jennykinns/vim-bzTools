@@ -1,0 +1,15 @@
+BzSendToMaya	bzTools.txt	/*BzSendToMaya*
+bzTools-AutocompleteAssetDictionary	bzTools.txt	/*bzTools-AutocompleteAssetDictionary*
+bzTools-OpenAssetComponentsSceneInMaya	bzTools.txt	/*bzTools-OpenAssetComponentsSceneInMaya*
+bzTools-ToggleMayaPythonBuffer	bzTools.txt	/*bzTools-ToggleMayaPythonBuffer*
+bzTools-changelog	bzTools.txt	/*bzTools-changelog*
+bzTools-config	bzTools.txt	/*bzTools-config*
+bzTools-contents	bzTools.txt	/*bzTools-contents*
+bzTools-issues	bzTools.txt	/*bzTools-issues*
+bzTools-usage	bzTools.txt	/*bzTools-usage*
+bzTools-version-0.1	bzTools.txt	/*bzTools-version-0.1*
+bzTools.txt	bzTools.txt	/*bzTools.txt*
+g:bzTools_autocompleteAssetDictionaryFilePath	bzTools.txt	/*g:bzTools_autocompleteAssetDictionaryFilePath*
+g:bzTools_enableAutocompleteAssetDictionary	bzTools.txt	/*g:bzTools_enableAutocompleteAssetDictionary*
+g:bzTools_mayaPythonBufferFilePath	bzTools.txt	/*g:bzTools_mayaPythonBufferFilePath*
+g:bzTools_mayaPythonBufferTemplate	bzTools.txt	/*g:bzTools_mayaPythonBufferTemplate*

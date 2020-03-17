@@ -63,8 +63,9 @@ function! OpenAssetComponentsSceneInMaya()
     """     latest components scene file.
     let l:command = ''
     python bzTools.mayaCommandToOpenComponentsFile()
-    call BzSendToMaya(l:command)
-
+    if l:command != ''
+        call BzSendToMaya(l:command)
+    endif
 endfunction
 
 function! ToggleMayaPythonBuffer()

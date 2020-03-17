@@ -4,7 +4,7 @@ import sys
 import os
 from getpass import getuser
 
-riggingRepoPath = 'C:/Users/{}/Documents/maya/scripts/rigging'.format(getuser())
+riggingRepoPath = 'C:/Users/{}/Documents/maya/scripts/rigging/framework'.format(getuser())
 
 sys.path.append(riggingRepoPath)
 import static
@@ -21,8 +21,15 @@ def _getCurrentBufferAssetData():
     if not os.path.isfile(filePath):
         return False
 
-    with open(filePath, 'r') as f:
+    try:
+        f = open(filePath, 'r')
         match = re.search(pattern, f.read())
+    except:
+        match = False
+    finally:
+        f.close()
+    # with open(filePath, 'r') as f:
+    #     match = re.search(pattern, f.read())
 
     if not match:
         return False
@@ -30,9 +37,10 @@ def _getCurrentBufferAssetData():
     assetDict = {}
     assetDict['name'] = match.group(1)
     assetDict['type'] = match.group(2)
-    assetDict['project'] = (
-        static.queries.projectJobCodeFromName(filePath.partition('builds/')[-1].partition('/')[0])
-    )
+    projectName = filePath.partition('builds/')[-1].partition('/')[0]
+    assetDict['project'] = (static.projects.ProjectsData().getJobCode(
+        filePath.partition('builds/')[-1].partition('/')[0]))
+    assetDict['fileName'] = fileName
 
     return assetDict
 
@@ -40,7 +48,12 @@ def _getAssetClassFromBuffer():
     assetData = _getCurrentBufferAssetData()
     if not assetData:
         return False
-    return Asset(assetData['name'], assetData['type'], Project(assetData['project']))
+    try:
+        assetClass = Asset(assetData['name'], assetData['type'], Project(assetData['project']))
+    except:
+        return False
+
+    return assetClass
 
 
 def appendNodesToDictionary():
@@ -70,7 +83,13 @@ def mayaCommandToOpenComponentsFile():
     assetData = _getCurrentBufferAssetData()
     buildAsset = _getAssetClassFromBuffer()
 
-    filePath = (buildAsset.bodyComponents() if assetData['name'] != 'face' else
+    if not assetData:
+        return False
+
+    if not buildAsset:
+        return False
+
+    filePath = (buildAsset.bodyComponents() if assetData['fileName'] != 'face' else
                 buildAsset.faceComponents())
     if filePath:
         filePath = filePath.replace('\\', '/')
